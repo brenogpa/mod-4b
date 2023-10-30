@@ -1,14 +1,16 @@
 package com.example.mod4b;
 
 import com.example.mod4b.models.Product;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api")
@@ -23,8 +25,25 @@ public class Controller {
 
 
     @GetMapping("/product")
-    public ArrayList<Product> GetProducts(){
-        return Products;
+    public ResponseEntity<List<Product>> GetProducts(){
+        try{
+            return ResponseEntity.ok(Products);
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
-    
+
+    @GetMapping("/product/{id}")
+    public ResponseEntity<Optional<Product>> GetProductById(@PathVariable int id){
+        try{
+            return ResponseEntity.ok(Products.stream().filter(x -> x.id == id).findFirst());
+        }
+        catch(Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+
 }
