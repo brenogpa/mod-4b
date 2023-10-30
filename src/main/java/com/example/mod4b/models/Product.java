@@ -1,9 +1,9 @@
 package com.example.mod4b.models;
 
-import java.util.Date;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 public class Product {
-
 
     public Product(int id, String description, double price, double stock) {
         this.id = id;
@@ -12,11 +12,23 @@ public class Product {
         this.stock = stock;
     }
 
-    public int getId() {
+    public Product(){
+
+    }
+
+    public Integer id;
+
+    public String description;
+
+    public double price;
+
+    public double stock;
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -36,8 +48,6 @@ public class Product {
         this.price = price;
     }
 
-
-
     public double getStock() {
         return stock;
     }
@@ -45,9 +55,4 @@ public class Product {
     public void setStock(double stock) {
         this.stock = stock;
     }
-
-    public int id;
-    public String description;
-    public double price;
-    public double stock;
 }
